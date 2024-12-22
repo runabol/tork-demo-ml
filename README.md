@@ -1,5 +1,7 @@
 # Tork Sentiment Analysis demo
 
+Accompanying code for my article [Building scalable ML workflows](https://dev.to/acoh3n/building-scalable-ml-workflows-4f0k).
+
 Download the latest [Tork binary](https://github.com/runabol/tork/releases/tag/v0.1.109) and untar it.
 
 ```bash
