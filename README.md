@@ -29,13 +29,24 @@ docker build -t sentiment-analysis .
 Submit the job. Tork jobs execute asynchronously. Once a job is submitted you get back a job ID to track its progress:
 
 ```bash
-JOB_ID=$(curl -s -X POST -H "content-type:text/yaml" --data-binary @sentiment.yaml http://localhost:8000/jobs | jq -r .id)
+JOB_ID=$(curl -s \
+  -X POST \
+  -H "content-type:text/yaml" \
+  --data-binary @sentiment.yaml \
+  http://localhost:8000/jobs | jq -r .id)
 ```
 
-Wait for the job to complete:
+Poll the job's status and wait for it to complete:
 
 ```bash
-while true; do state=$(curl -s http://localhost:8000/jobs/$JOB_ID | jq -r .state); echo "Status: $state"; if [ "$state" = "COMPLETED" ]; then; break; fi; sleep 1; done
+while true; do 
+  state=$(curl -s http://localhost:8000/jobs/$JOB_ID | jq -r .state)
+  echo "Status: $state"
+  if [ "$state" = "COMPLETED" ]; then; 
+     break 
+  fi 
+  sleep 1
+done
 ```
 
 Inspect the job results:
