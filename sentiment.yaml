@@ -1,0 +1,14 @@
+name: Sentiment analysis example
+inputs:
+  input_text: Today is a lovely day
+  model_name: distilbert-base-uncased-finetuned-sst-2-english
+output: "{{trim(tasks.sentiment)}}"
+tasks:
+  - name: Run sentiment analysis
+    var: sentiment
+    run: |
+      python3 inference.py > $TORK_OUTPUT
+    image: sentiment-analysis:latest
+    env:
+      INPUT_TEXT: "{{inputs.input_text}}"
+      MODEL_NAME: "{{inputs.model_name}}"
